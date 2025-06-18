@@ -1,0 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.env/
+.venv/
+venv/
+ENV/
+env/
+Pipfile.lock
+
+# Flask specific
+instance/
+*.db
+*.sqlite3
+*.log
+*.pid
+
+# Flask config overrides
+config.py
+config_local.py
+.env.*  # For dotenv files like .env.dev or .env.prod
+.env
+
+# Ignore test coverage reports
+htmlcov/
+.coverage
+.tox/
+.nox/
+.cache/
+.pytest_cache/
+
+# Ignore editor/IDE folders
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore build and dist
+build/
+dist/
+*.egg-info/
+
+# Ignore generated or sensitive files
+*.pem
+*.crt
+*.key
+*.zip
+*.bak
+*.swp
+
+# MacOS + Linux/Unix junk files
+.DS_Store
+Thumbs.db
+*.~*
+
+# Jenkins build artifacts (optional)
+workspace/
+*.war
+*.jar
+*.tar.gz
+
+# Python notebooks (if any used for dev/debug)
+*.ipynb
+
+# Logs
+logs/
+*.log
+
+# Local docker-related files
+docker-compose.override.yml
