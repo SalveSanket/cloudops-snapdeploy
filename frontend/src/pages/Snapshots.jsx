@@ -13,7 +13,7 @@ const Snapshots = () => {
     const fetchNames = async () => {
       if (accountId && type) {
         try {
-          const res = await axios.get('http://localhost:5050/list-names', {
+          const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050'}/list-names`, {
             params: { account_id: accountId, type }
           })
           setNames(res.data.names)
@@ -28,7 +28,7 @@ const Snapshots = () => {
 
   const fetchSnapshots = async () => {
     try {
-      const res = await axios.get(`http://localhost:5050/snapshots`, {
+      const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050'}/snapshots`, {
         params: {
           account_id: accountId,
           type,
@@ -51,7 +51,7 @@ const Snapshots = () => {
 
   const handleRollback = async (timestamp) => {
     try {
-      await axios.post('http://localhost:5050/rollback', {
+      await axios.post(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050'}/rollback`, {
         account_id: accountId,
         type,
         name,

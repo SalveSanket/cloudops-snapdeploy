@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
+const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050';
+
 const Accounts = () => {
   const [accounts, setAccounts] = useState([])
   const [formData, setFormData] = useState({
@@ -15,7 +17,7 @@ const Accounts = () => {
 
   const fetchAccounts = async () => {
     try {
-      const res = await axios.get('http://localhost:5050/accounts')
+      const res = await axios.get(`${API_BASE}/accounts`)
       const data = res.data
       setAccounts(Array.isArray(data) ? data : data.accounts)
     } catch (err) {
@@ -33,7 +35,7 @@ const Accounts = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      await axios.post('http://localhost:5050/accounts', formData)
+      await axios.post(`${API_BASE}/accounts`, formData)
       fetchAccounts()
       setFormData({
         account_id: '',
@@ -49,7 +51,7 @@ const Accounts = () => {
 
   const handleDelete = async accountId => {
     try {
-      await axios.delete(`http://localhost:5050/accounts/${accountId}`)
+      await axios.delete(`${API_BASE}/accounts/${accountId}`)
       fetchAccounts()
     } catch (err) {
       console.error('Error deleting account:', err)

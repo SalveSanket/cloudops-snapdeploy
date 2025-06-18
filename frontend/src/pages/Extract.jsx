@@ -4,6 +4,8 @@ import axios from 'axios';
 import Alert from '../components/Alert';
 
 const Extract = () => {
+  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5050';
+
   const [accountId, setAccountId] = useState('');
   const [type, setType] = useState('lambda');
   const [resourceName, setResourceName] = useState('');
@@ -16,7 +18,7 @@ const Extract = () => {
     const fetchNames = async () => {
       if (accountId && type) {
         try {
-          const res = await axios.get('http://localhost:5050/list-names', {
+          const res = await axios.get(`${apiBaseUrl}/list-names`, {
             params: { account_id: accountId, type },
           });
           setNames(res.data.names);
@@ -34,7 +36,7 @@ const Extract = () => {
     setAlert({ type: '', message: '' });
 
     try {
-      const res = await axios.get(`http://localhost:5050/extract/${type}`, {
+      const res = await axios.get(`${apiBaseUrl}/extract/${type}`, {
         params: {
           account_id: accountId,
           name: resourceName,
@@ -88,7 +90,7 @@ const Extract = () => {
     setLoading(true);
     setAlert({ type: '', message: '' });
     try {
-      const res = await axios.post('http://localhost:5050/snapshot', {
+      const res = await axios.post(`${apiBaseUrl}/snapshot`, {
         account_id: accountId,
         type,
         name: resourceName,
