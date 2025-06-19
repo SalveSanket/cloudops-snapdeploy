@@ -10,7 +10,6 @@ pipeline {
 
   options {
     timestamps()
-    ansiColor('xterm')
   }
 
   stages {
@@ -21,8 +20,8 @@ pipeline {
     }
 
     stage('Build Frontend') {
-      dir('frontend') {
-        steps {
+      steps {
+        dir('frontend') {
           echo '📦 Installing frontend dependencies...'
           sh 'npm ci'
           echo '⚙️ Building React frontend...'
@@ -35,16 +34,14 @@ pipeline {
       steps {
         withAWS(credentials: 'AWS Jenkins Credentials', region: "${env.AWS_REGION}") {
           echo '☁️ Syncing frontend build to S3...'
-          sh '''
-            aws s3 sync frontend/dist/ s3://$S3_UI_BUCKET --delete
-          '''
+          sh 'aws s3 sync frontend/dist/ s3://$S3_UI_BUCKET --delete'
         }
       }
     }
 
     stage('Build and Deploy Backend (SAM)') {
-      dir('backend') {
-        steps {
+      steps {
+        dir('backend') {
           withAWS(credentials: 'AWS Jenkins Credentials', region: "${env.AWS_REGION}") {
             echo '🔧 Building backend using SAM...'
             sh 'sam build'
@@ -70,7 +67,6 @@ pipeline {
     }
     failure {
       echo '❌ Deployment failed. Check logs above.'
-      // Optional: Send email/Slack notification
     }
   }
 }
